@@ -3,3 +3,4 @@ for (i = 0; i < localStorage.length; i++) {
   text.innerText = localStorage.getItem(i);
   output.appendChild(text);
 }
+
