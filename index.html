@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
+    <title>Proverb or Quote?</title>
+  </head>
+  <body>
+    <section id="page">
+      <h2>Proverb or Quote?</h2>
+      <article>Do you want to see a proverb or a quote?</article>
+      <article id="choices">
+        <label class="container">
+          <input type="radio" name="1" id="proverbButton" />
+          Proverb
+        </label>
+        <label class="container">
+          <input type="radio" name="1" id="quoteButton" />
+          Quote
+        </label>
+      </article>
+      <div>
+        <button id="see" onclick="getQuote()" class="adds">Add</button>
+        <button id="erase" onclick="del()">Erase</button>
+        <button id="add" onclick="add()" class="adds">
+          Add Proverb or Quote
+        </button>
+      </div>
+      <div contenteditable="false" data-text="?" id="output"></div>
+      <div contenteditable="false" id="form">
+        <h3>Proverb or Quote</h3>
+        <form>
+          <label class="container">
+            <input type="radio" name="2" id="proverbButtonForm" />
+            Proverb
+          </label>
+          <label class="container">
+            <input type="radio" name="2" id="quoteButtonForm" />
+            Quote
+          </label>
+        </form>
+        <input type="text" id="input" />
+        <button id="submit">Submit</button>
+      </div>
+      <button id="favorites">Favorites</button>
+    </section>
+    <script src="src/script.js"></script>
+  </body>
+</html>

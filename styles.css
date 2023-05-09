@@ -1,0 +1,44 @@
+* {
+  padding: 0.5rem;
+}
+[contentEditable="false"]:empty:not(:focus):before {
+  content: attr(data-text);
+  /* color: grey; */
+  font-size: 10rem;
+}
+#page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+#output {
+  width: 50%;
+  text-align: center;
+  padding: 7rem;
+  background-color: grey;
+  color: white;
+  margin-bottom: 2rem;
+  border-radius: 1rem;
+  transition: display 2s;
+}
+
+button {
+  border-radius: 0.5rem;
+  border-color: white;
+  margin: 1rem;
+}
+#choices {
+  margin-top: 1rem;
+}
+#form {
+  display: none;
+  width: 50%;
+  text-align: center;
+  padding: 7rem;
+  background-color: grey;
+  color: white;
+  margin-bottom: 2rem;
+  border-radius: 1rem;
+  transition: display 2s;
+}
