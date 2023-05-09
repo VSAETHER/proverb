@@ -55,11 +55,12 @@ function getQuote() {
   if (document.getElementById("quoteButton").checked) {
     let rand = Math.floor(Math.random() * quote.length);
     const message = document.createElement("h2");
-    message.innerHTML = quote[rand].message;
+    let text = quote[rand].message;
+    message.innerHTML = text;
     const button = document.createElement("button");
     button.textContent = "favorite";
     button.addEventListener("click", () => {
-      localStorage.setItem(localStorage.length, input.value);
+      localStorage.setItem(localStorage.length, text);
     });
     const div = document.createElement("div");
     div.appendChild(message);
@@ -68,11 +69,12 @@ function getQuote() {
   } else if (document.getElementById("proverbButton").checked) {
     let rand = Math.floor(Math.random() * proverb.length);
     const message = document.createElement("h2");
-    message.innerHTML = proverb[rand].message;
+    let text = proverb[rand].message;
+    message.innerHTML = text;
     const button = document.createElement("button");
     button.textContent = "favorite";
     button.addEventListener("click", () => {
-      localStorage.setItem(localStorage.length, input.value);
+      localStorage.setItem(localStorage.length, text);
     });
     const div = document.createElement("div");
     div.appendChild(message);
@@ -145,12 +147,5 @@ submit.addEventListener("click", () => {
       //   input.value = "";
     }
   } else {
-  }
-});
-document.getElementById("favorites").addEventListener("click", () => {
-  for (i = 0; i < localStorage.length; i++) {
-    const text = document.createElement("h2");
-    text.innerText = localStorage.getItem(i);
-    output.appendChild(text);
   }
 });
