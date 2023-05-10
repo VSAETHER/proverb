@@ -41,18 +41,29 @@ const data = [
     message: "Avec du temps et de la patience, on vient à bout de tout.",
   },
 ];
+console.log(data);
+const output = document.getElementById("output"); // the textbox
+const submit = document.getElementById("submit"); // Submit new quote or proverb
+const input = document.getElementById("input"); // input for new quote or proverb
+const form = document.getElementById("form"); // The form containing submit and input
+const addBtn = document.getElementById("add");
+const seeBtn = document.getElementById("see");
+const quoteBtn = document.getElementById("quoteButton");
+const proverbBtn = document.getElementById("proverbButton");
 
-const output = document.getElementById("output");
-const submit = document.getElementById("submit");
-const input = document.getElementById("input");
+const quote = data.filter((item) => item.type == "quote"); //filter the data into two arrays containing quote or proverb
+const proverb = data.filter((item) => item.type == "proverb");
 
+/*ADD quote or proverb button*/
 function getQuote() {
-  document.getElementById("add").style.display = "none";
-  document.getElementById("see").style.display = "none";
+  addBtn.style.display = "none"; //hide the buttons
+  seeBtn.style.display = "none";
   output.innerHTML = "";
-  const quote = data.filter((item) => (item.type = "quote"));
-  const proverb = data.filter((item) => (item.type = "proverb"));
-  if (document.getElementById("quoteButton").checked) {
+
+  if (quoteBtn.checked) {
+    //If quote is chosen
+    console.log(quote);
+    console.log(data);
     let rand = Math.floor(Math.random() * quote.length);
     const message = document.createElement("h2");
     let text = quote[rand].message;
@@ -66,7 +77,9 @@ function getQuote() {
     div.appendChild(message);
     div.appendChild(button);
     output.appendChild(div);
-  } else if (document.getElementById("proverbButton").checked) {
+  } else if (proverbBtn.checked) {
+    //If proverb is chosen
+    console.log(proverb);
     let rand = Math.floor(Math.random() * proverb.length);
     const message = document.createElement("h2");
     let text = proverb[rand].message;
@@ -80,10 +93,10 @@ function getQuote() {
     div.appendChild(message);
     div.appendChild(button);
     output.appendChild(div);
-    div.style.flexDirection(column);
   } else {
     const message = document.createElement("h2");
-    message.innerHTML = "error";
+    message.innerText = "error";
+    message.style.color = "red";
     output.appendChild(message);
   }
 }
@@ -91,17 +104,18 @@ function getQuote() {
 function del() {
   output.innerHTML = "";
   output.style.display = "block";
-  document.getElementById("form").style.display = "none";
-  document.getElementById("add").style.display = "inline";
-  document.getElementById("see").style.display = "inline";
+  output.style.color = "white";
+  form.style.display = "none";
+  addBtn.style.display = "inline";
+  seeBtn.style.display = "inline";
 }
 function add() {
   output.style.display = "none";
-  document.getElementById("form").style.display = "block";
+  form.style.display = "block";
 }
 submit.addEventListener("click", () => {
-  document.getElementById("add").style.display = "none";
-  document.getElementById("see").style.display = "none";
+  addBtn.style.display = "none";
+  seeBtn.style.display = "none";
   if (document.getElementById("proverbButtonForm").checked) {
     if (input.value === "") {
     } else {
@@ -113,7 +127,8 @@ submit.addEventListener("click", () => {
       });
       text.innerHTML = input.value;
       output.style.display = "block";
-      document.getElementById("form").style.display = "none";
+      form.style.display = "none";
+      button.style.display = "inline";
       output.appendChild(text);
       output.appendChild(button);
       const object = {
@@ -135,7 +150,8 @@ submit.addEventListener("click", () => {
       });
       text.innerHTML = input.value;
       output.style.display = "block";
-      document.getElementById("form").style.display = "none";
+      form.style.display = "none";
+      button.style.display = "inline";
       output.appendChild(text);
       output.appendChild(button);
       const object = {
@@ -147,6 +163,66 @@ submit.addEventListener("click", () => {
       //   input.value = "";
     }
   } else {
-    
+    output.style.display = "block";
+    form.style.display = "none";
+    output.innerText = "error";
+    output.style.color = "red";
   }
 });
+
+var bgColor;
+function random_bg_color() {
+  var x = Math.floor(Math.random() * 256);
+  var y = Math.floor(Math.random() * 256);
+  var z = Math.floor(Math.random() * 256);
+  bgColor = "rgba(" + x + "," + y + "," + z + "," + 0.9 + ")";
+  output.style.background = bgColor;
+}
+
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+let raf;
+
+const ball = {
+  x: 100,
+  y: 100,
+  vx: 3,
+  vy: 1,
+  radius: 10,
+  color: "blue",
+  draw() {
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, true);
+    ctx.closePath();
+    ctx.fillStyle = this.color;
+    ctx.fill();
+  },
+};
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ball.draw();
+  ball.x += ball.vx;
+  ball.y += ball.vy;
+
+  if (ball.y + ball.vy > canvas.height || ball.y + ball.vy < 0) {
+    ball.vy = -ball.vy;
+    random_bg_color();
+  }
+  if (ball.x + ball.vx > canvas.width || ball.x + ball.vx < 0) {
+    ball.vx = -ball.vx;
+    random_bg_color();
+  }
+
+  raf = window.requestAnimationFrame(draw);
+}
+
+// canvas.addEventListener("mouseover", (e) => {
+//   raf = window.requestAnimationFrame(draw);
+// });
+raf = window.requestAnimationFrame(draw);
+// canvas.addEventListener("mouseout", (e) => {
+//   window.cancelAnimationFrame(raf);
+// });
+
+ball.draw();

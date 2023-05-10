@@ -8,26 +8,33 @@
     <title>Proverb or Quote?</title>
   </head>
   <body>
+    <canvas id="canvas"></canvas>
     <section id="page">
-      <h2>Proverb or Quote?</h2>
-      <article>Do you want to see a proverb or a quote?</article>
-      <article id="choices">
-        <label class="container">
-          <input type="radio" name="1" id="proverbButton" />
-          Proverb
-        </label>
-        <label class="container">
-          <input type="radio" name="1" id="quoteButton" />
-          Quote
-        </label>
-      </article>
-      <div>
-        <button id="see" onclick="getQuote()" class="adds">Add</button>
-        <button id="erase" onclick="del()">Erase</button>
-        <button id="add" onclick="add()" class="adds">
-          Add Proverb or Quote
-        </button>
-      </div>
+      <section id="questions">
+        <h2>Proverb or Quote?</h2>
+
+        <article>Do you want to see a proverb or a quote?</article>
+        <article id="choices">
+          <label class="container">
+            <input type="radio" name="1" id="proverbButton" />
+            Proverb
+          </label>
+          <label class="container">
+            <input type="radio" name="1" id="quoteButton" />
+            Quote
+          </label>
+        </article>
+        <div>
+          <button id="see" onclick="getQuote()" class="adds">Add</button>
+          <button id="erase" onclick="del()">Erase</button>
+          <button id="add" onclick="add()" class="adds">
+            Add Proverb or Quote
+          </button>
+          <a href="favorites.html">
+            <button id="favorites">Favorites</button></a
+          >
+        </div>
+      </section>
       <div contenteditable="false" data-text="?" id="output"></div>
       <div contenteditable="false" id="form">
         <h3>Proverb or Quote</h3>
@@ -44,9 +51,7 @@
         <input type="text" id="input" />
         <button id="submit">Submit</button>
       </div>
-      <a href="favorites.html"> <button id="favorites">Favorites</button></a>
     </section>
     <script src="src/script.js"></script>
   </body>
 </html>
-      
