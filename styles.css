@@ -1,11 +1,13 @@
 * {
   margin: 0;
 }
+/* Set the canvas to cover the whole page and z index to be lower then the rest so it is under. */
 #canvas {
   width: 100%;
   z-index: -1;
   position: absolute;
   margin: 0;
+  height: 100%;
 }
 
 [contentEditable="false"]:empty:not(:focus):before {
@@ -23,50 +25,68 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 0.5rem;
 }
 #output {
-  width: 50%;
+  width: 60%;
   text-align: center;
-  padding: 7rem;
-  background-color: rgba(128, 128, 128, 0.9);
+  padding: 7rem 1rem;
+  background-color: rgba(165, 221, 218, 0.9);
   color: white;
   margin-bottom: 2rem;
   border-radius: 1rem;
 }
+#input {
+  border-radius: 0.5rem;
+  font-size: larger;
+}
 #questions {
-  width: 50%;
+  width: 60%;
   text-align: center;
   padding: 1rem;
-  background-color: rgba(179, 179, 179, 0.9);
+  background-color: rgba(165, 221, 218, 0.9);
   color: white;
   margin-top: 2rem;
   margin-bottom: 2rem;
   border-radius: 1rem;
+  color: black;
+  font-size: xx-large;
 }
 
 button {
   border-radius: 1rem;
-  /* border-color: rgb(0, 0, 0); */
-  background-color: rgb(255, 255, 255);
+  background-color: rgba(255, 255, 255, 0.8);
   margin: 1rem;
   padding: 1rem;
   color: black;
 }
 button:hover {
-  background-color: rgba(164, 219, 228, 0.473);
+  background-color: rgba(255, 255, 255, 0);
 }
 
 #form {
   display: none;
-  width: 50%;
+  width: 60%;
   text-align: center;
-  padding: 7rem;
-  background-color: rgba(128, 128, 128, 0.9);
+  padding: 7rem 1rem;
+  padding-bottom: 8.35rem;
+  padding-top: 8.35rem;
+  background-color: rgba(165, 221, 218, 0.9);
   color: white;
   margin-bottom: 2rem;
   border-radius: 1rem;
+  font-size: x-large;
 }
 h1 {
+  font-size: xx-large;
+}
+#titleFavorites {
+  font-size: 7rem;
+}
+#return {
+  position: absolute;
+  left: 20%;
+  top: 1%;
+}
+#returnBtn {
   font-size: xx-large;
 }

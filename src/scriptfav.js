@@ -61,4 +61,4 @@ raf = window.requestAnimationFrame(draw);
 //   window.cancelAnimationFrame(raf);
 // });
 
-ball.draw();
+// ball.draw();
