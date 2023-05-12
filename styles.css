@@ -1,5 +1,6 @@
 * {
   margin: 0;
+  font-family: "Courier New", Courier, monospace;
 }
 /* Set the canvas to cover the whole page and z index to be lower then the rest so it is under. */
 #canvas {
@@ -37,7 +38,8 @@
 }
 #input {
   border-radius: 0.5rem;
-  font-size: larger;
+  font-size: large;
+  width: 70%;
 }
 #questions {
   width: 60%;
@@ -76,7 +78,8 @@ button:hover {
   border-radius: 1rem;
   font-size: x-large;
 }
-h1 {
+h1,
+h2 {
   font-size: xx-large;
 }
 #titleFavorites {

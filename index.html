@@ -9,10 +9,11 @@
   </head>
   <body>
     <canvas id="canvas"></canvas>
+    <nav>
+      <a href="index.html"></a>
+    </nav>
     <section id="page">
       <section id="questions">
-        <h2>Proverb or Quote?</h2>
-
         <article>Do you want to see a proverb or a quote?</article>
         <article id="choices">
           <label class="container">
@@ -25,11 +26,9 @@
           </label>
         </article>
         <div>
-          <button id="see" onclick="getQuote()" class="adds">Add</button>
-          <button id="erase" onclick="del()">Erase</button>
-          <button id="add" onclick="add()" class="adds">
-            Add Proverb or Quote
-          </button>
+          <button id="see" disabled="disabled">Add</button>
+          <button id="erase" onclick="del()" disabled="disabled">Erase</button>
+          <button id="add" onclick="add()">Add Proverb or Quote</button>
           <a href="favorites.html">
             <button id="favorites">Favorites</button></a
           >
@@ -37,7 +36,6 @@
       </section>
       <div contenteditable="false" data-text="?" id="output"></div>
       <div contenteditable="false" id="form">
-        <h3>Proverb or Quote</h3>
         <form>
           <label class="container">
             <input type="radio" name="2" id="proverbButtonForm" />
@@ -48,10 +46,11 @@
             Quote
           </label>
         </form>
-        <input type="text" id="input" />
-        <button id="submit">Submit</button>
+        <input type="text" id="input" placeholder="Add a Proverb or Quote.." />
+        <button id="submit" disabled="disabled">Submit</button>
       </div>
     </section>
+    <script src="src/balls.js"></script>
     <script src="src/script.js"></script>
   </body>
 </html>
