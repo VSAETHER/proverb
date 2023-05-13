@@ -10,13 +10,21 @@
   <body>
     <canvas id="canvas"></canvas>
     <section id="page">
-      <div contenteditable="false" id="output">
+      <section id="questions">
+        <h2 id="titleFavorites">Favorites</h2>
         <a href="index.html" id="return">
           <button id="returnBtn">Return</button></a
         >
-        <h1 id="titleFavorites">Favorites</h1>
+        <button id="eraseFav">Erase all favorites</button>
+
         <br />
-      </div>
+      </section>
+      <div
+        contenteditable="false"
+        id="output"
+        class="form"
+        data-text="You have no favorites"
+      ></div>
     </section>
     <script src="src/balls.js"></script>
     <script src="src/scriptfav.js"></script>

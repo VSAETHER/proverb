@@ -42,17 +42,19 @@ const data = [
   },
 ];
 
-const output = document.getElementById("output"); // the textbox
-const submit = document.getElementById("submit"); // Submit new quote or proverb
-const input = document.getElementById("input"); // input for new quote or proverb
+const output = document.getElementById("output"); // The container for the output
+const submit = document.getElementById("submit"); // Submit button for new quote or proverb
+const input = document.getElementById("input"); // Input for new quote or proverb
 const form = document.getElementById("form"); // The form containing submit and input
-const addBtn = document.getElementById("add");
-const seeBtn = document.getElementById("see");
-const eraseBtn = document.getElementById("erase");
-const quoteBtn = document.getElementById("quoteButton");
-const proverbBtn = document.getElementById("proverbButton");
-const radioButtons = document.querySelectorAll('input[name="1"]');
+const addBtn = document.getElementById("add"); // Add a new quote or proverb to the list
+const seeBtn = document.getElementById("see"); // Generate a quote or proverb to the output
+const eraseBtn = document.getElementById("erase"); // Erase button
+const quoteBtn = document.getElementById("quoteButton"); // Radio button for quotes
+const proverbBtn = document.getElementById("proverbButton"); // Radio button for proverbs
+const quoteBtnForm = document.getElementById("quoteButtonForm"); // Radio button for writing a new quote
+const proverbBtnForm = document.getElementById("proverbButtonForm"); // Radio button for writing a new proverb
 
+// Enables the button for getting a quote or proverb when at least one of the radio buttons are checked
 document.addEventListener("click", () => {
   if (quoteBtn.checked || proverbBtn.checked) {
     seeBtn.removeAttribute("disabled");
@@ -60,34 +62,48 @@ document.addEventListener("click", () => {
     seeBtn.setAttribute("disabled", "disabled");
   }
 });
-seeBtn.addEventListener("click", () => {
-  eraseBtn.removeAttribute("disabled");
+document.addEventListener("click", () => {
+  if (quoteBtnForm.checked || proverbBtnForm.checked) {
+    submit.removeAttribute("disabled");
+  } else {
+    submit.setAttribute("disabled", "disabled");
+  }
 });
 
-/*ADD quote or proverb button*/
+// Enables the erase button when button for getting quotes/proverbs or submitting new quotes/proverbs are clicked
+seeBtn.addEventListener("click", () => eraseBtn.removeAttribute("disabled"));
+submit.addEventListener("click", () => eraseBtn.removeAttribute("disabled"));
+
+//Add quote or proverb button
 seeBtn.addEventListener("click", () => {
   output.style.display = "block";
   form.style.display = "none";
-  output.innerHTML = "";
-  const quote = data.filter((item) => item.type == "quote"); //filter the data into two arrays containing quote or proverb
+  output.innerText = "";
+  const quote = data.filter((item) => item.type == "quote");
   const proverb = data.filter((item) => item.type == "proverb");
 
+  //If quote is chosen
   if (quoteBtn.checked) {
-    //If quote is chosen
-    console.log(quote);
-    console.log(data);
     let rand = Math.floor(Math.random() * quote.length);
     const message = document.createElement("h2");
     let text = quote[rand].message;
     message.innerText = "Quote:\n \n" + text + "\n \n";
+
+    // Create a button to add favorites, get the list from local storage.
+    // Check if element already exists, if not add to the list and put back in local storage.
     const button = document.createElement("button");
     button.textContent = "Add to Favorites";
     button.addEventListener("click", () => {
-      localStorage.setItem(localStorage.length, text);
+      var favorites = JSON.parse(localStorage.getItem("favorites"));
+      if (favorites == null) favorites = [];
+      if (favorites.includes(text) == false) favorites.push(text);
+      localStorage.setItem("favorites", JSON.stringify(favorites));
     });
+    // Append the message and button to the textbox
     output.append(message, button);
-  } else if (proverbBtn.checked) {
+
     //If proverb is chosen
+  } else if (proverbBtn.checked) {
     console.log(proverb);
     let rand = Math.floor(Math.random() * proverb.length);
     const message = document.createElement("h2");
@@ -107,40 +123,50 @@ seeBtn.addEventListener("click", () => {
     });
     // Append the message and button to the textbox
     output.append(message, button);
-  } //else {
-  //   const message = document.createElement("h2");
-  //   message.innerText = "error";
-  //   message.style.color = "red";
-  //   output.appendChild(message);
-  // }
+  }
 });
 
+// Erase button, erases the content in the output, shows the output and hides the form.
 function del() {
-  output.innerHTML = "";
+  output.innerText = "";
   output.style.display = "block";
   output.style.color = "white";
   form.style.display = "none";
   eraseBtn.setAttribute("disabled", "disabled");
 }
+
+// Hides the output and shows the form.
 function add() {
   output.style.display = "none";
   form.style.display = "block";
 }
+
+// Returns original placeholder when clicked on input.
+input.addEventListener(
+  "click",
+  () => (input.placeholder = "Add a Proverb or Quote..")
+);
+
+// Submit button, pushes a new proverb or quote to the list data and shows it in the output.
 submit.addEventListener("click", () => {
+  output.innerText = ""; // Clear the output
+
+  //Proverb button checked. If input is empty shows error message otherwise add to list and display in output.
   if (document.getElementById("proverbButtonForm").checked) {
     if (input.value === "") {
-      output.style.display = "block";
-      form.style.display = "none";
-      output.innerText = "error";
-      output.style.color = "red";
+      input.placeholder = "Can't be empty"; // New placeholder for when trying to submit empty message
     } else {
       const text = document.createElement("h2");
       const button = document.createElement("button");
       button.textContent = "Add to Favorites";
       button.addEventListener("click", () => {
-        localStorage.setItem(localStorage.length, input.value);
+        var favorites = JSON.parse(localStorage.getItem("favorites"));
+        if (favorites == null) favorites = [];
+        if (favorites.includes(text.innerText) == false)
+          favorites.push(text.innerText);
+        localStorage.setItem("favorites", JSON.stringify(favorites));
       });
-      text.innerHTML = input.value;
+      text.innerText = input.value;
       output.style.display = "block";
       form.style.display = "none";
       button.style.display = "inline";
@@ -153,20 +179,23 @@ submit.addEventListener("click", () => {
         message: text.innerText,
       };
       data.push(object);
-      //   input.value = "";
+      input.value = "";
     }
-  } else if (document.getElementById("quoteButtonForm").checked) {
+  }
+  // Same for the quote button.
+  else if (document.getElementById("quoteButtonForm").checked) {
     if (input.value === "") {
-      output.style.display = "block";
-      form.style.display = "none";
-      output.innerText = "error";
-      output.style.color = "red";
+      input.placeholder = "Can't be empty";
     } else {
       const text = document.createElement("h2");
       const button = document.createElement("button");
       button.textContent = "Add to Favorites";
       button.addEventListener("click", () => {
-        localStorage.setItem(localStorage.length, input.value);
+        var favorites = JSON.parse(localStorage.getItem("favorites"));
+        if (favorites == null) favorites = [];
+        if (favorites.includes(text.innerText) == false)
+          favorites.push(text.innerText);
+        localStorage.setItem("favorites", JSON.stringify(favorites));
       });
       text.innerHTML = input.value;
       output.style.display = "block";
@@ -181,13 +210,7 @@ submit.addEventListener("click", () => {
         message: text.innerText,
       };
       data.push(object);
-      //   input.value = "";
+      input.value = "";
     }
   }
-  // else {
-  //   output.style.display = "block";
-  //   form.style.display = "none";
-  //   output.innerText = "error";
-  //   output.style.color = "red";
-  // }
 });

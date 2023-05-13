@@ -1,1 +1,1 @@
-"# proverb" 
+"# Proverb or quote"
