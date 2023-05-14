@@ -63,14 +63,6 @@ document.addEventListener("click", () => {
   }
 });
 
-// document.addEventListener("click", () => {
-//   if (quoteBtnForm.checked || proverbBtnForm.checked) {
-//     submit.removeAttribute("disabled");
-//   } else {
-//     submit.setAttribute("disabled", "disabled");
-//   }
-// });
-
 // Enables the erase button when the output is not empty
 document.addEventListener("click", () => {
   if (output.innerText != "") eraseBtn.removeAttribute("disabled");
@@ -212,6 +204,7 @@ submit.addEventListener("click", () => {
       input.value = "";
     }
   } else {
+    input.value = "";
     input.placeholder = "Choose Quote or Proverb."; // New placeholder for when trying to submit empty message
   }
 });
