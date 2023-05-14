@@ -56,23 +56,25 @@ const proverbBtnForm = document.getElementById("proverbButtonForm"); // Radio bu
 
 // Enables the button for getting a quote or proverb when at least one of the radio buttons are checked
 document.addEventListener("click", () => {
-  if (quoteBtn.checked || proverbBtn.checked) {
+  if ((quoteBtn.checked || proverbBtn.checked) && output.innerText == "") {
     seeBtn.removeAttribute("disabled");
   } else {
     seeBtn.setAttribute("disabled", "disabled");
   }
 });
-document.addEventListener("click", () => {
-  if (quoteBtnForm.checked || proverbBtnForm.checked) {
-    submit.removeAttribute("disabled");
-  } else {
-    submit.setAttribute("disabled", "disabled");
-  }
-});
 
-// Enables the erase button when button for getting quotes/proverbs or submitting new quotes/proverbs are clicked
-seeBtn.addEventListener("click", () => eraseBtn.removeAttribute("disabled"));
-submit.addEventListener("click", () => eraseBtn.removeAttribute("disabled"));
+// document.addEventListener("click", () => {
+//   if (quoteBtnForm.checked || proverbBtnForm.checked) {
+//     submit.removeAttribute("disabled");
+//   } else {
+//     submit.setAttribute("disabled", "disabled");
+//   }
+// });
+
+// Enables the erase button when the output is not empty
+document.addEventListener("click", () => {
+  if (output.innerText != "") eraseBtn.removeAttribute("disabled");
+});
 
 //Add quote or proverb button
 seeBtn.addEventListener("click", () => {
@@ -129,9 +131,6 @@ seeBtn.addEventListener("click", () => {
 // Erase button, erases the content in the output, shows the output and hides the form.
 function del() {
   output.innerText = "";
-  output.style.display = "block";
-  output.style.color = "white";
-  form.style.display = "none";
   eraseBtn.setAttribute("disabled", "disabled");
 }
 
@@ -139,6 +138,8 @@ function del() {
 function add() {
   output.style.display = "none";
   form.style.display = "block";
+  eraseBtn.setAttribute("disabled", "disabled");
+  output.innerText = "";
 }
 
 // Returns original placeholder when clicked on input.
@@ -149,8 +150,6 @@ input.addEventListener(
 
 // Submit button, pushes a new proverb or quote to the list data and shows it in the output.
 submit.addEventListener("click", () => {
-  output.innerText = ""; // Clear the output
-
   //Proverb button checked. If input is empty shows error message otherwise add to list and display in output.
   if (document.getElementById("proverbButtonForm").checked) {
     if (input.value === "") {
@@ -212,5 +211,7 @@ submit.addEventListener("click", () => {
       data.push(object);
       input.value = "";
     }
+  } else {
+    input.placeholder = "Choose Quote or Proverb."; // New placeholder for when trying to submit empty message
   }
 });
