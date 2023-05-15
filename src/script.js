@@ -55,6 +55,8 @@ const quoteBtnForm = document.getElementById("quoteButtonForm"); // Radio button
 const proverbBtnForm = document.getElementById("proverbButtonForm"); // Radio button for writing a new proverb
 
 // Enables the button for getting a quote or proverb when at least one of the radio buttons are checked
+// It is dangerous to put an event listener on the entire document, even if you have a conditional structure
+// the event is triggered each time a click is made on the page and wherever on the page.
 document.addEventListener("click", () => {
   if ((quoteBtn.checked || proverbBtn.checked) && output.innerText == "") {
     seeBtn.removeAttribute("disabled");
@@ -64,6 +66,7 @@ document.addEventListener("click", () => {
 });
 
 // Enables the erase button when the output is not empty
+// Same here, you should add an event listener on a click to the entire document
 document.addEventListener("click", () => {
   if (output.innerText != "") eraseBtn.removeAttribute("disabled");
 });
@@ -87,6 +90,9 @@ seeBtn.addEventListener("click", () => {
     // Check if element already exists, if not add to the list and put back in local storage.
     const button = document.createElement("button");
     button.textContent = "Add to Favorites";
+    
+    // You could refactor in a single well named function all the logic
+    // concerning the favorites instead of re-writing twice.
     button.addEventListener("click", () => {
       var favorites = JSON.parse(localStorage.getItem("favorites"));
       if (favorites == null) favorites = [];
@@ -121,6 +127,8 @@ seeBtn.addEventListener("click", () => {
 });
 
 // Erase button, erases the content in the output, shows the output and hides the form.
+// Try to code in ES6 please, it is a bettre habit to take. 
+// const deal = () => {...}
 function del() {
   output.innerText = "";
   eraseBtn.setAttribute("disabled", "disabled");
@@ -141,6 +149,8 @@ input.addEventListener(
 );
 
 // Submit button, pushes a new proverb or quote to the list data and shows it in the output.
+// You could have had an event listener on the form, listening to the event "submit". Libs handling forms are built this way
+// so they can retrieve the values from the entire form.
 submit.addEventListener("click", () => {
   //Proverb button checked. If input is empty shows error message otherwise add to list and display in output.
   if (document.getElementById("proverbButtonForm").checked) {
@@ -151,6 +161,7 @@ submit.addEventListener("click", () => {
       const button = document.createElement("button");
       button.textContent = "Add to Favorites";
       button.addEventListener("click", () => {
+        // Same here, this could be in an external function
         var favorites = JSON.parse(localStorage.getItem("favorites"));
         if (favorites == null) favorites = [];
         if (favorites.includes(text.innerText) == false)
