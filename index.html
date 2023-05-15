@@ -16,6 +16,9 @@
       <section id="questions">
         <article>Do you want to see a proverb or a quote?</article>
         <article id="choices">
+          <!-- It is better to add a for attribute to the label. The for attribute takes the 
+                value of the input (or select or textarea ...) value). This way the label is linked to the 
+                input. Here <label for="proverbButton" ...> -->
           <label class="container">
             <input type="radio" name="1" id="proverbButton" />
             Proverb
@@ -38,6 +41,7 @@
       <div contenteditable="false" id="form">
         <form>
           <label class="container">
+            <!-- Be careful the names should not be the same between two inputs -->
             <input type="radio" name="2" id="proverbButtonForm" />
             Proverb
           </label>
